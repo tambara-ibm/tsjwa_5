@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thymeleafの紹介</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p th:text="${first}">firstの内容がここに入る</p>
+
+    <p th:text="'ここにsecondで渡した文字列「' + ${second} + '」が入る'">secondの内容がここに入る</p>
+
+    <p th:text="|文字列にthirdで渡した文字列「${third}」を埋め込むことも出来る|">thirdの内容がここに入る</p>
+
+    <p th:text="#{message.hello}">メッセージファイルの内容がここに入る</p>
+
+    <table>
+        <tr>
+            <th>書影</th>
+            <th>タイトル</th>
+        </tr>
+        <tr th:each="book : ${books}" th:object="${book}">
+            <td>
+                <img
+                    src="https://ndlsearch.ndl.go.jp/thumbnail/9784314009782.jpg"
+                    alt="book thumbnail" 
+                    th:src="|https://ndlsearch.ndl.go.jp/thumbnail/*{isbn}.jpg|"/>
+            </td>
+            <td th:text="*{name}">
+                神々の沈黙
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

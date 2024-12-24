@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>読書SNS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="main.css">
+
+</head>
+<body>
+<header>
+<h1>読書SNS</h1>
+</header>
+<nav>
+<ul>
+    <li><a href="">Top</a></li>
+    <li><a href="">Person</a></li>
+</ul>
+</nav>
+<div id="articles" th:each="article : ${articles}">
+    <article>
+        <div class="user" th:object="${article.user}">
+            <div class="name" th:text="*{name}">hoge-taro</div>
+            <div class="icon"><img src="tambara-icon.png" alt="usericon" th:src="*{icon}" /></div>
+        </div>
+        <div class="book" th:object="${article.book}">
+            <div class="name" th:text="*{name}">神々の沈黙: 意識の誕生と文明の興亡</div>
+            <div class="image"><img src="https://ndlsearch.ndl.go.jp/thumbnail/9784314009782.jpg" alt="book thumbnail" th:src="|https://ndlsearch.ndl.go.jp/thumbnail/*{isbn}.jpg|"/></div>
+        </div>
+        <div class="message" th:object="${article.message}">
+            <div class="content" th:text="*{content}">AIに意識を持たせるために二分心から考えたい</div>
+            <time datetime="2024-01-11T01:11:11.111Z" th:datetime="*{{timestamp}}" th:text="*{{timestamp}}">2024/01/11 11:11</time>
+        </div>
+    </article>
+</div>
+<footer>
+2024 Elec.Delivery
+</footer>
+    
+</body>
+</html>

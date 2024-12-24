@@ -1,0 +1,43 @@
+header {
+    background: #e6fac5;
+}
+nav {
+    background: #b3fb3f;
+}
+nav > ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+nav > ul > li {
+    list-style: none;
+}
+article {
+    background: #f4fac5;
+    margin-bottom: 5px;
+}
+article {
+    display: grid;
+    grid-template-columns: 120px 150px 1fr;
+}
+article > div.user > div.icon > img {
+    height: 100px;
+}
+
+article > div.book > div.name {
+    display: none;
+}
+article > div.book > div.image > img {
+    height:150px;
+}
+article > div.message {
+    position: relative;
+}
+article > div.message > time {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: smaller;
+}
+footer {
+    background: #e6fac5;
+}
