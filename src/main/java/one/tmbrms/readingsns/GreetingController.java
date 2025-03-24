@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -67,4 +69,52 @@ public class GreetingController {
 
         return ret;
     }
+
+    @GetMapping("/users")
+    public String users(Model model){
+        model.addAttribute("users", getUsers());
+        return "users";
+    }
+
+    public List<User> getUsers(){
+        List<User> ret = new ArrayList<User>();
+
+        ret.add(new User(1, "tambara", "tambara-icon.png"));
+        ret.add(new User(2, "Eri KUWAHARA", "kuwahara-icon.png"));
+        ret.add(new User(3, "harimoto", "harimoto-icon.png"));
+
+        return ret;
+    }
+
+    @GetMapping("/user/{id}")
+    public String user(Model model, @PathVariable int id){
+        model.addAttribute("user", getUser(id));
+        model.addAttribute("articles", getArticles().stream().filter(a -> a.getUser().getId() == id)); 
+        return "user";
+    }
+
+    public User getUser(int id){
+        User ret = null;
+
+        switch(id){
+            case 1:
+                ret = new User(1, "tambara", "tambara-icon.png");
+                break;
+            case 2:
+                ret = new User(2, "Eri KUWAHARA", "kuwahara-icon.png");
+                break;
+            case 3:
+                ret = new User(3, "harimoto", "harimoto-icon.png");
+                break;
+        }
+
+        return ret;
+    }
+
+    @PostMapping("/post")
+    public String post(@RequestParam String userid, @RequestParam String isbn, @RequestParam String content){
+        System.out.println(String.format("userid=%s, isbn=%s, content=%s", userid, isbn, content));
+        return "redirect:/";
+    }
+
 }

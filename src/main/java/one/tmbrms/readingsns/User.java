@@ -10,4 +10,8 @@ public class User {
         this.name = name;
         this.icon = icon;
     }
+
+    public int getId() {
+        return id;
+    }
 }

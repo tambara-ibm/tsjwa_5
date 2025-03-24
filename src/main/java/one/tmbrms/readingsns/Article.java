@@ -4,8 +4,12 @@ public class Article {
     public User user;
     public Book book;
     public Message message;
+
     public void setUser(int id, String name, String icon) {
         user = new User(id, name, icon);
+    }
+    public User getUser() {
+        return user;
     }
 
     public void setBook(String name, String isbn) {

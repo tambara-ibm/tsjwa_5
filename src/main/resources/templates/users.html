@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>読書SNS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="main.css">
+
+</head>
+<body>
+<header>
+<h1>読書SNS: ユーザー一覧</h1>
+</header>
+<nav>
+<ul>
+    <li><a href="/">Top</a></li>
+    <li><a href="/users">Person</a></li>
+</ul>
+</nav>
+
+<ul>
+    <li th:each="user : ${users}">
+        <a th:href="@{|/user/${user.id}|}" th:text="${user.name}">hoge-taro</a>
+    </li>
+</ul>
+<footer>
+2024 Elec.Delivery
+</footer>
+    
+</body>
+</html>
