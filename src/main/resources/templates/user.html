@@ -20,10 +20,13 @@
 <form action="/post" method="post">
     <input type="hidden" name="userid" th:value="${user.id}" />
     <input type="text" name="username" th:value="${user.name}" readonly/>
-    <input type="text" name="isbn" value="9784314009782" />
+    <input type="text" name="isbn" th:value="${articles[0].book.isbn}" />
     <textarea rows="3" cols="80" name="content" placeholder="本の感想を書いてください"></textarea>
     <button type="submit">投稿</button>
 </form>
+
+<button type="submit">増やしたボタン</button>
+
 <div id="articles" th:each="article : ${articles}">
     <article>
         <div class="user" th:object="${article.user}">
