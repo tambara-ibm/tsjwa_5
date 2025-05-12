@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model){
@@ -47,7 +51,7 @@ public class MainController {
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("articles", Article.getArticles());
+        model.addAttribute("articles", Article.getArticles(articleRepository));
         return "index";
     }
     
@@ -60,7 +64,7 @@ public class MainController {
     @GetMapping("/user/{id}")
     public String user(Model model, @PathVariable int id){
 
-        Stream<Article> articles = Article.getArticles().stream()
+        Stream<Article> articles = Article.getArticles(articleRepository).stream()
             .filter(a -> a.getUser().getId() == id);
 
         model.addAttribute("user", User.getUser(id));

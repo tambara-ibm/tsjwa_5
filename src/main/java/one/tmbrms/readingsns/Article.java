@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Article {
     public User user;
     public Book book;
@@ -40,6 +42,7 @@ public class Article {
         message = new Message(id, content, timestamp);
     }
 
+    /* 
     public static List<Article> getArticles() {
         List<String> lines = new ArrayList<String>();
         try {
@@ -53,5 +56,19 @@ public class Article {
             .stream()
             .map(line -> new Article(line))
             .collect(Collectors.toList());
+    }
+    */
+    public static List<Article> getArticles(ArticleRepository articleRepository) {
+        List<ArticleDB> articles = articleRepository.findAll();
+
+        return articles.stream().map(db -> {
+            Article article = new Article();
+            article.setUser(db.getUserId(), db.getUserName(), db.getUserIcon());
+            article.setBook(db.getBookName(), db.getIsbn());
+            article.setMessage(db.getMessageId(), db.getContent(), db.getTimestamp());
+            return article;
+        }).collect(Collectors.toList());
+        
+
     }
 }
