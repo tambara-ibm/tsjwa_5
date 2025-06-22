@@ -6,6 +6,6 @@ class SampleSpec extends Specification {
 
     def "sample test"() {
         expect:
-        2 + 3 == 4
+        2 + 3 == 5
     }
 }

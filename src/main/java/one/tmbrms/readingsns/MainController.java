@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import one.tmbrms.readingsns.entity.Book;
+import one.tmbrms.readingsns.entity.Message;
+import one.tmbrms.readingsns.entity.User;
+
 @Controller
 public class MainController {
 
@@ -57,18 +61,19 @@ public class MainController {
     
     @GetMapping("/users")
     public String users(Model model){
-        model.addAttribute("users", User.getUsers());
+        //model.addAttribute("users", User.getUsers());
         return "users";
     }
 
     @GetMapping("/user/{id}")
     public String user(Model model, @PathVariable int id){
-
+        /* 
         Stream<Article> articles = Article.getArticles(articleRepository).stream()
             .filter(a -> a.getUser().getId() == id);
 
         model.addAttribute("user", User.getUser(id));
         model.addAttribute("articles", articles.toList()); 
+        */
         return "user";
     }
 
@@ -76,32 +81,17 @@ public class MainController {
     public String post(@RequestParam String userid, @RequestParam String isbn, @RequestParam String content){
         System.out.println(String.format("userid=%s, isbn=%s, content=%s", userid, isbn, content));
 
-        var user = User.getUsers().stream()
-            .filter(u -> u.getId() == Integer.parseInt(userid))
-            .findFirst()
-            .orElse(null);
+        User user = null;
         
-        var book = Book.getBooks().stream()
-            .filter(b -> b.isbn.equals(isbn))
-            .findFirst()
-            .orElse(null);
+        Book book = null;
         
-        var message = Message.create(content);
+        Message message = null;
 
         var article = new Article();
         article.user = user;
         article.book = book;
         article.message = message;
         
-        try {
-            Files.writeString(
-                Paths.get("data/data.csv"), 
-                "\n" + article.toCsv(),
-                StandardOpenOption.APPEND); 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         
         return "redirect:/";
     }

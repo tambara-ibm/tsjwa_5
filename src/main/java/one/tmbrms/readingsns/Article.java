@@ -8,6 +8,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import one.tmbrms.readingsns.entity.Book;
+import one.tmbrms.readingsns.entity.Message;
+import one.tmbrms.readingsns.entity.User;
+
 public class Article {
     public User user;
     public Book book;
@@ -17,7 +21,7 @@ public class Article {
         var values = csv.split(",");
         user = new User(Integer.parseInt(values[0]), values[1], values[2]);
         book = new Book(values[3], values[4]);
-        message = new Message(Integer.parseInt(values[5]), values[6], values[7]);
+        message = null;
     }
 
     public Article(){}
@@ -39,7 +43,7 @@ public class Article {
     }
     
     public void setMessage(int id, String content, String timestamp) {
-        message = new Message(id, content, timestamp);
+        message = null;
     }
 
     /* 
