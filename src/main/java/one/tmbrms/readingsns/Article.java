@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import one.tmbrms.readingsns.entity.Book;
 import one.tmbrms.readingsns.entity.Message;
 import one.tmbrms.readingsns.entity.User;
+import one.tmbrms.readingsns.repository.MessageRepository;
 
 public class Article {
     public User user;
@@ -30,20 +31,20 @@ public class Article {
         return String.format("%s,%s,%s", user.toCsv(), book.toCsv(), message.toCsv());
     }
 
-    public void setUser(int id, String name, String icon) {
-        user = new User(id, name, icon);
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setBook(String name, String isbn) {
-        book = new Book(name, isbn);
+    public void setBook(Book book) {
+        this.book = book;
     }
     
-    public void setMessage(int id, String content, String timestamp) {
-        message = null;
+    public void setMessage(Message message) {
+        this.message = message;
     }
 
     /* 
@@ -62,14 +63,14 @@ public class Article {
             .collect(Collectors.toList());
     }
     */
-    public static List<Article> getArticles(ArticleRepository articleRepository) {
-        List<ArticleDB> articles = articleRepository.findAll();
+    public static List<Article> getArticles(MessageRepository messageRepository) {
+        List<Message> articles = messageRepository.findAll();
 
         return articles.stream().map(db -> {
             Article article = new Article();
-            article.setUser(db.getUserId(), db.getUserName(), db.getUserIcon());
-            article.setBook(db.getBookName(), db.getIsbn());
-            article.setMessage(db.getMessageId(), db.getContent(), db.getTimestamp());
+            article.setUser(db.user);
+            article.setBook(db.book);
+            article.setMessage(db);
             return article;
         }).collect(Collectors.toList());
         

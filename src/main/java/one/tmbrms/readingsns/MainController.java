@@ -20,12 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import one.tmbrms.readingsns.entity.Book;
 import one.tmbrms.readingsns.entity.Message;
 import one.tmbrms.readingsns.entity.User;
+import one.tmbrms.readingsns.repository.MessageRepository;
 
 @Controller
 public class MainController {
 
     @Autowired
-    private ArticleRepository articleRepository;
+    private MessageRepository messageRepository;
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model){
@@ -55,7 +56,7 @@ public class MainController {
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("articles", Article.getArticles(articleRepository));
+        model.addAttribute("articles", Article.getArticles(messageRepository));
         return "index";
     }
     

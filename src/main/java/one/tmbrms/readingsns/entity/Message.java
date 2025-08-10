@@ -19,11 +19,11 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    public User user;
 
     @ManyToOne
     @JoinColumn(name = "isbn")
-    Book book;
+    public Book book;
 
     public String content;
     public String timestamp;
