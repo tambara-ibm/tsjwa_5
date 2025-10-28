@@ -1,12 +1,12 @@
 package one.tmbrms.readingsns.entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
 public class Book {
     public String name;
+    
     @Id
     public String isbn;
     

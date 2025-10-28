@@ -1,12 +1,7 @@
 package one.tmbrms.readingsns;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import one.tmbrms.readingsns.entity.Book;
 import one.tmbrms.readingsns.entity.Message;
@@ -47,22 +42,6 @@ public class Article {
         this.message = message;
     }
 
-    /* 
-    public static List<Article> getArticles() {
-        List<String> lines = new ArrayList<String>();
-        try {
-            lines = Files.readAllLines(Paths.get("data/data.csv"));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return lines
-            .stream()
-            .map(line -> new Article(line))
-            .collect(Collectors.toList());
-    }
-    */
     public static List<Article> getArticles(MessageRepository messageRepository) {
         List<Message> articles = messageRepository.findAll();
 
@@ -73,7 +52,5 @@ public class Article {
             article.setMessage(db);
             return article;
         }).collect(Collectors.toList());
-        
-
     }
 }
