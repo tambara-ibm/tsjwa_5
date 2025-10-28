@@ -16,27 +16,25 @@ public class MainController {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("articles", Article.getArticles(messageRepository));
+        model.addAttribute("articles", messageRepository.findAll().stream().map(m -> new Article(m)).toList());
         return "index";
     }
     
     @GetMapping("/users")
     public String users(Model model){
-        //model.addAttribute("users", User.getUsers());
+        model.addAttribute("users", userRepository.findAll());
         return "users";
     }
 
     @GetMapping("/user/{id}")
     public String user(Model model, @PathVariable int id){
-        /* 
-        Stream<Article> articles = Article.getArticles(articleRepository).stream()
-            .filter(a -> a.getUser().getId() == id);
-
-        model.addAttribute("user", User.getUser(id));
-        model.addAttribute("articles", articles.toList()); 
-        */
+        model.addAttribute("user", userRepository.findById(id).get());
+        model.addAttribute("articles", messageRepository.findByUserId(id).stream().map(m -> new Article(m)).toList()); 
         return "user";
     }
 

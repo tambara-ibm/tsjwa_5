@@ -20,6 +20,12 @@ public class Article {
         message = null;
     }
 
+    public Article(Message message){
+        this.user = message.user;
+        this.book = message.book;
+        this.message = message;
+    }
+
     public Article(){}
 
     public String toCsv() {
@@ -42,15 +48,7 @@ public class Article {
         this.message = message;
     }
 
-    public static List<Article> getArticles(MessageRepository messageRepository) {
-        List<Message> articles = messageRepository.findAll();
 
-        return articles.stream().map(db -> {
-            Article article = new Article();
-            article.setUser(db.user);
-            article.setBook(db.book);
-            article.setMessage(db);
-            return article;
-        }).collect(Collectors.toList());
-    }
+
+
 }

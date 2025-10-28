@@ -24,4 +24,16 @@ class MessageSpec extends Specification {
 
 
     }
+
+    def "特定のユーザーのメッセージだけを取得する"() {
+        given: 
+        def user = new User(id:1)
+        
+        when:
+        def messages = messageRepository.findByUserId(user.id)
+
+        then:
+        messages.size() == 1
+        messages.first.user.name == "tambara"
+    }
 }
